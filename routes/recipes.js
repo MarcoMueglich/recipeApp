@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const mongoose = require('mongoose');
-const Recipe = require('../models/Recipe');
 
 const recipeController = require('../controllers/recipeController');
 
