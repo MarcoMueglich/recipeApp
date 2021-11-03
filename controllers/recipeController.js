@@ -15,22 +15,25 @@ var db = mongoose.connection;
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-exports.recipeList = function (req, res, next) {
+exports.recipeList_get = function (req, res, next) {
     Recipe.find({}, function (err, recipes) {
         if (err) console.log(err);
         res.render('recipeList', { title: 'Rezepte', recipeList: recipes });
     });
 };
 
-exports.recipeDetail = function (req, res, next) {
-    console.log(req.params);
+exports.recipeDetail_get = function (req, res, next) {
     Recipe.findOne({ _id: req.params.recipeID }, function (err, recipe) {
         if (err) console.log(err);
-        res.render('recipeDetail', { title: 'Rezepte', recipeData: recipe });
+        res.render('recipeDetail', { title: recipe.title, recipeData: recipe });
     });
 };
 
-exports.testInsert = function (req, res, next) {
+exports.recipeCreate_get = function (req, res, next) {
+    res.render('recipeCreate', { title: 'Rezepte' });
+};
+
+exports.testInsert_get = function (req, res, next) {
     var exampleRecipe = new Recipe({
         title: 'Griechischer Bauernsalat',
         category: 'Vorspeise',
