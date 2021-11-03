@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    .container.py-5
+        h1.text-center #{recipeData.title}
+        img.rounded.my-3(src= recipeData.imgUrl, alt="")
+        h2 Zubereitung
+        p #{recipeData.instructions}
+        h2 Zutaten
+        ul
+            each ingredient, index in recipeData.ingredients
+                li #{recipeData.amounts[index] + " " + ingredient}
+
