@@ -5,3 +5,15 @@ $dark: rgb(27, 27, 27);
 
 // import Bootstrap
 @import '../node_modules/bootstrap/scss/bootstrap';
+
+// import Font Awesome Icons
+@import '../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '../node_modules/@fortawesome/fontawesome-free/scss/solid.scss';
+
+.ingredientControlBtn {
+    color: $dark;
+    transition: color 250ms;
+    &:hover {
+        color: $light;
+    }
+}
