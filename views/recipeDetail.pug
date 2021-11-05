@@ -3,7 +3,8 @@ extends layout
 block content
     .container.py-5
         h1.text-center #{recipeData.title}
-        img.rounded.my-3(src= recipeData.imgUrl, alt="")
+        .d-flex.justify-content-center
+            img.rounded.my-3.border.border-dark(src= recipeData.imgUrl, alt="" width="500px")
         h2 Zubereitung
         p #{recipeData.instructions}
         h2 Zutaten
