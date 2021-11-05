@@ -15,4 +15,24 @@ block content
             .mb-3
                 label.form-label(for='inputTitle') Foto (URL)
                 input#inputTitle.form-control(type='url')
-            button.btn.btn-primary(type='submit') Submit
+            .mb-3
+                label.form-label(for='inputInstructions') Zubereitung
+                textarea#inputInstructions.form-control(rows="10")
+            #ingredientList.mb-3
+                label.form-label(for='inputInstructions') Zutaten
+                .row
+                    .col-2
+                        label.form-label(for='inputInstructions') Menge
+                    .col-9
+                        label.form-label(for='inputInstructions') Zutat
+                #lastInput.row
+                    .col-2
+                        input#inputIngredientAmount1.form-control(type='text')
+                    .col-8
+                        input#inputIngredient1.form-control(type='text')
+                    .col-1.d-flex.justify-content-center.align-items-center
+                        i#addIngredientBtn.ingredientControlBtn.fas.fa-plus-circle.fa-2x
+
+
+            button.btn.btn-primary(type='submit') Hochladen
+    script(src="../js/recipeCreate.js")
