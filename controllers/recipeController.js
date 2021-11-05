@@ -33,6 +33,24 @@ exports.recipeCreate_get = function (req, res, next) {
     res.render('recipeCreate', { title: 'Rezepte' });
 };
 
+exports.recipeCreate_post = function (req, res, next) {
+    var newRecipe = req.body;
+
+    var recipe = new Recipe({
+        title: newRecipe.title,
+        category: newRecipe.category,
+        imgUrl: newRecipe.imgUrl,
+        instructions: newRecipe.instructions,
+        ingredients: newRecipe.ingredients,
+        amounts: newRecipe.amounts,
+    });
+
+    recipe.save(function (error) {
+        if (error) console.log(error);
+        console.log('erfolgreich gespeichert');
+    });
+};
+
 exports.testInsert_get = function (req, res, next) {
     var exampleRecipe = new Recipe({
         title: 'Griechischer Bauernsalat',
