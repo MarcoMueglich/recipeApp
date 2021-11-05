@@ -1,19 +1,23 @@
 var addIngredientBtn = document.getElementById('addIngredientBtn');
 var removeIngredientBtn = document.getElementById('removeIngredientBtn');
+
 var ingredientCounter = 1;
 
 var addIngredientInput = () => {
     ingredientCounter++;
-    var inputHTML = `<div class="row mt-2 inputRow"><div class="col-2"><input class="form-control" id="inputIngredientAmount${ingredientCounter}" type="text"></div><div class="col-8"><input class="form-control" id="inputIngredient${ingredientCounter}" type="text"></div>`;
+    var inputHTML = `<div class="row mt-2 inputRow"><div class="col-2"><input class="form-control inputIngredientAmount" id="inputIngredientAmount${ingredientCounter}" type="text" name="amount${ingredientCounter}"></div><div class="col-8"><input class="form-control inputIngredient" id="inputIngredient${ingredientCounter}" type="text" name="ingredient${ingredientCounter}"></div>`;
 
-    var inputRows = document.getElementsByClassName('inputRow');
+    var inputRows = document.querySelectorAll('.inputRow');
 
-    // Convert inputHTML to DOM Element and add after the last Input
+    // Convert inputHTML to DOM Element and add after the last input
     inputRows[inputRows.length - 1].after(
         document.createRange().createContextualFragment(inputHTML)
     );
 
-    //Move the add and remove Button to the new Row
+    // Reselect all rows to include new row
+    inputRows = document.querySelectorAll('.inputRow');
+
+    //Move the add and remove buttons to the new row
     inputRows[inputRows.length - 1].appendChild(addIngredientBtn.parentElement);
     inputRows[inputRows.length - 1].appendChild(
         removeIngredientBtn.parentElement
@@ -21,12 +25,12 @@ var addIngredientInput = () => {
 };
 
 var removeIngredientInput = () => {
-    // Removing is only possible if there is more than 1 Input
+    // Removing is only possible if there is more than 1 input
     if (ingredientCounter > 1) {
         ingredientCounter--;
-        var inputRows = document.getElementsByClassName('inputRow');
+        var inputRows = document.querySelectorAll('.inputRow');
 
-        // Move the add and remove Button to Row before
+        // Move the add and remove buttons to row before
         inputRows[inputRows.length - 2].appendChild(
             addIngredientBtn.parentElement
         );
@@ -39,5 +43,62 @@ var removeIngredientInput = () => {
     }
 };
 
+var getIngredientAmountInputData = () => {
+    var inputs = document.querySelectorAll('.inputIngredientAmount');
+
+    var data = [];
+
+    inputs.forEach((element) => {
+        data.push(element.value);
+    });
+
+    return data;
+};
+
+var getIngredientInputData = () => {
+    var inputs = document.querySelectorAll('.inputIngredient');
+
+    var data = [];
+
+    inputs.forEach((element) => {
+        data.push(element.value);
+    });
+
+    return data;
+};
+
+var getInputData = () => {
+    var recipe = {
+        title: document.querySelector('#inputTitle').value,
+        category: document.querySelector('#inputCategory').value,
+        imgUrl: document.querySelector('#inputImg').value,
+        instructions: document.querySelector('#inputInstructions').value,
+        amounts: getIngredientAmountInputData(),
+        ingredients: getIngredientInputData(),
+    };
+
+    return recipe;
+};
+
+async function postData(url = '', data = {}) {
+    const response = await fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+    return response.json();
+}
+
 addIngredientBtn.addEventListener('click', addIngredientInput);
 removeIngredientBtn.addEventListener('click', removeIngredientInput);
+
+document.querySelector('#uploadBtn').addEventListener('click', (event) => {
+    postData('/rezepte/erstellen', getInputData()).then((data) => {
+        console.log(data);
+        window.location = '/rezepte';
+    });
+    event.preventDefault();
+});

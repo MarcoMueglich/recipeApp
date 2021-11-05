@@ -2,39 +2,37 @@ extends layout
 
 block content
     .container.py-5
-        form
+        form(action="/rezepte/erstellen" method="post")
             .mb-3
                 label.form-label(for='inputTitle') Titel
-                input#inputTitle.form-control(type='text')
+                input#inputTitle.form-control(type='text' name="title")
             .mb-3
                 label.form-label(for='inputCategory') Kategorie
-                select#inputCategory.form-select
+                select#inputCategory.form-select(name="category")
                     option Vorspeise
                     option Hauptspeise
                     option Nachspeise
             .mb-3
-                label.form-label(for='inputTitle') Foto (URL)
-                input#inputTitle.form-control(type='url')
+                label.form-label(for='inputImg') Foto (URL)
+                input#inputImg.form-control(type='url' name="img")
             .mb-3
                 label.form-label(for='inputInstructions') Zubereitung
-                textarea#inputInstructions.form-control(rows="10")
+                textarea#inputInstructions.form-control(rows="10" name="instructions")
             #ingredientList.mb-3
-                label.form-label(for='inputInstructions') Zutaten
+                label.form-label Zutaten
                 .row
                     .col-2
-                        label.form-label(for='inputInstructions') Menge
+                        label.form-label Menge
                     .col-9
-                        label.form-label(for='inputInstructions') Zutat
+                        label.form-label Zutat
                 .inputRow.row
                     .col-2
-                        input#inputIngredientAmount1.form-control(type='text')
+                        input#inputIngredientAmount1.inputIngredientAmount.form-control(type='text' name="amount1")
                     .col-8
-                        input#inputIngredient1.form-control(type='text')
+                        input#inputIngredient1.inputIngredient.form-control(type='text' name="ingredient1")
                     .col-1.d-flex.justify-content-center.align-items-center
                         i#addIngredientBtn.ingredientControlBtn.fas.fa-plus-circle.fa-2x
                     .col-1.d-flex.justify-content-center.align-items-center
                         i#removeIngredientBtn.ingredientControlBtn.fas.fa-minus-circle.fa-2x
-
-
-            button.btn.btn-primary(type='submit') Hochladen
+            button#uploadBtn.btn.btn-primary Hochladen
     script(src="../js/recipeCreate.js")
