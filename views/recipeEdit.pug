@@ -1,0 +1,69 @@
+extends layout
+
+block content
+    .container.py-5
+        form(action="/rezepte/erstellen" method="post")
+            .mb-3
+                label.form-label(for='inputTitle') Titel
+                input#inputTitle.form-control(type='text' name="title" value=recipeData.title)
+            .mb-3
+                label.form-label(for='inputCategory') Kategorie
+                select#inputCategory.form-select(name="category")
+                    option(value="") --Bitte Auswählen--
+                    if recipeData.category == "Vorspeise" 
+                        option(value="Vorspeise" selected) Vorspeise
+                        option(value="Hauptspeise") Hauptspeise
+                        option(value="Nachspeise") Nachspeise
+                    if recipeData.category == "Hauptspeise" 
+                        option(value="Vorspeise") Vorspeise
+                        option(value="Hauptspeise"  selected) Hauptspeise
+                        option(value="Nachspeise") Nachspeise
+                    if recipeData.category == "Nachspeise" 
+                        option(value="Vorspeise") Vorspeise
+                        option(value="Hauptspeise") Hauptspeise
+                        option(value="Nachspeise" selected) Nachspeise
+            .mb-3
+                label.form-label(for='inputImg') Foto (URL)
+                input#inputImg.form-control(type='url' name="img" value=recipeData.imgUrl)
+            .mb-3
+                label.form-label(for='inputInstructions') Zubereitung
+                textarea#inputInstructions.form-control(rows="10" name="instructions") #{recipeData.instructions}
+            #ingredientList.mb-3
+                label.form-label Zutaten
+                .row
+                    .col-2
+                        label.form-label Menge
+                    .col-9
+                        label.form-label Zutat
+                each ingredient, index in recipeData.ingredients
+                    .inputRow.row.mb-2
+                        .col-2
+                            input.inputIngredientAmount.form-control(id="inputIngredientAmount" + (index+1), type='text' name="amount" + (index+1), value=recipeData.amounts[index])
+                        .col-8
+                            input.inputIngredient.form-control(id="inputIngredient" + (index+1), type='text' name="ingredient" + (index+1), value=ingredient)
+                        if index == recipeData.ingredients.length - 1
+                            .col-1.d-flex.justify-content-center.align-items-center
+                                i#addIngredientBtn.ingredientControlBtn.fas.fa-plus-circle.fa-2x
+                            .col-1.d-flex.justify-content-center.align-items-center
+                                i#removeIngredientBtn.ingredientControlBtn.fas.fa-minus-circle.fa-2x
+            button#uploadBtn.btn.btn-primary Hochladen
+
+    #successModal.modal.fade(tabindex='-1' aria-hidden='true' data-bs-backdrop="static")
+        .modal-dialog
+            .modal-content
+                .modal-header
+                .modal-body
+                    p Das Rezept wurde erfolgreich hochgeladen!
+                .modal-footer
+                    a(href="/rezepte") 
+                        button.btn.btn-primary(type='button') Zu den Rezepten
+
+    #errorModal.modal.fade(tabindex='-1' aria-hidden='true')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    p Beim Hochladen des Rezeptes gab es ein Problem. Bitte fülle alle Felder aus!
+
+    script(src="../../js/recipeCreate.js")
