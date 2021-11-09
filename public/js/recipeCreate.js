@@ -1,11 +1,11 @@
 var addIngredientBtn = document.getElementById('addIngredientBtn');
 var removeIngredientBtn = document.getElementById('removeIngredientBtn');
 
-var ingredientCounter = 1;
+var ingredientCounter = document.querySelectorAll('.inputIngredient').length;
 
 var addIngredientInput = () => {
     ingredientCounter++;
-    var inputHTML = `<div class="row mt-2 inputRow"><div class="col-2"><input class="form-control inputIngredientAmount" id="inputIngredientAmount${ingredientCounter}" type="text" name="amount${ingredientCounter}"></div><div class="col-8"><input class="form-control inputIngredient" id="inputIngredient${ingredientCounter}" type="text" name="ingredient${ingredientCounter}"></div>`;
+    var inputHTML = `<div class="row mb-2 inputRow"><div class="col-2"><input class="form-control inputIngredientAmount" id="inputIngredientAmount${ingredientCounter}" type="text" name="amount${ingredientCounter}"></div><div class="col-8"><input class="form-control inputIngredient" id="inputIngredient${ingredientCounter}" type="text" name="ingredient${ingredientCounter}"></div>`;
 
     var inputRows = document.querySelectorAll('.inputRow');
 
