@@ -23,9 +23,17 @@ exports.recipeList_get = function (req, res, next) {
 };
 
 exports.recipeDetail_get = function (req, res, next) {
-    Recipe.findOne({ _id: req.params.recipeID }, function (err, recipe) {
+    Recipe.findById(req.params.recipeID, function (err, recipe) {
         if (err) console.log(err);
-        res.render('recipeDetail', { title: recipe.title, recipeData: recipe });
+
+        if (recipe != null) {
+            res.render('recipeDetail', {
+                title: recipe.title,
+                recipeData: recipe,
+            });
+        } else {
+            res.status('404').send('Recipe not found');
+        }
     });
 };
 
@@ -72,4 +80,23 @@ exports.recipeCreate_post = function (req, res, next) {
         });
         res.end(JSON.stringify('Error'));
     }
+};
+
+exports.recipeEdit_get = function (req, res, next) {
+    Recipe.findById(req.params.recipeID, function (err, recipe) {
+        if (err) console.log(err);
+
+        if (recipe != null) {
+            res.render('recipeEdit', {
+                title: 'Edit - ' + recipe.title,
+                recipeData: recipe,
+            });
+        } else {
+            res.status('404').send('Recipe not found');
+        }
+    });
+};
+
+exports.recipeEdit_put = function (req, res, next) {
+    res.render('recipeCreate', { title: 'Rezepte' });
 };
