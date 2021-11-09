@@ -11,4 +11,6 @@ block content
         ul
             each ingredient, index in recipeData.ingredients
                 li #{recipeData.amounts[index] + " " + ingredient}
+        a(href="/rezepte/" + recipeData._id + "/bearbeiten") 
+            button.btn.btn-primary Bearbeiten 
 
