@@ -67,6 +67,8 @@ var getIngredientInputData = () => {
     return data;
 };
 
+// TODO add Validation Client AND Server Side
+
 var getInputData = () => {
     var recipe = {
         title: document.querySelector('#inputTitle').value,
@@ -94,6 +96,8 @@ async function postData(url = '', data = {}) {
 
 addIngredientBtn.addEventListener('click', addIngredientInput);
 removeIngredientBtn.addEventListener('click', removeIngredientInput);
+
+// TODO does not forward to /recipes
 
 document.querySelector('#uploadBtn').addEventListener('click', (event) => {
     postData('/rezepte/erstellen', getInputData()).then((data) => {
