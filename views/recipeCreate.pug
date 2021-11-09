@@ -35,4 +35,23 @@ block content
                     .col-1.d-flex.justify-content-center.align-items-center
                         i#removeIngredientBtn.ingredientControlBtn.fas.fa-minus-circle.fa-2x
             button#uploadBtn.btn.btn-primary Hochladen
+
+    #successModal.modal.fade(tabindex='-1' aria-hidden='true' data-bs-backdrop="static")
+        .modal-dialog
+            .modal-content
+                .modal-header
+                .modal-body
+                    p Das Rezept wurde erfolgreich hochgeladen!
+                .modal-footer
+                    a(href="/rezepte") 
+                        button.btn.btn-primary(type='button') Zu den Rezepten
+
+    #errorModal.modal.fade(tabindex='-1' aria-hidden='true')
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    p Beim Hochladen des Rezeptes gab es ein Problem. Bitte fülle alle Felder aus!
+
     script(src="../js/recipeCreate.js")
