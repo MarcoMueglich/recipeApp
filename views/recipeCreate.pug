@@ -9,9 +9,10 @@ block content
             .mb-3
                 label.form-label(for='inputCategory') Kategorie
                 select#inputCategory.form-select(name="category")
-                    option Vorspeise
-                    option Hauptspeise
-                    option Nachspeise
+                    option(value="") --Bitte Auswählen-- 
+                    option(value="Vorspeise") Vorspeise
+                    option(value="Hauptspeise") Hauptspeise
+                    option(value="Nachspeise") Nachspeise
             .mb-3
                 label.form-label(for='inputImg') Foto (URL)
                 input#inputImg.form-control(type='url' name="img")
@@ -25,7 +26,7 @@ block content
                         label.form-label Menge
                     .col-9
                         label.form-label Zutat
-                .inputRow.row
+                .inputRow.row.mb-2
                     .col-2
                         input#inputIngredientAmount1.inputIngredientAmount.form-control(type='text' name="amount1")
                     .col-8
