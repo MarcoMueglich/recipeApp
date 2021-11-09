@@ -12,4 +12,8 @@ router.post('/erstellen', recipeController.recipeCreate_post);
 
 router.get('/:recipeID', recipeController.recipeDetail_get);
 
+router.get('/:recipeID/bearbeiten', recipeController.recipeEdit_get);
+
+router.put('/:recipeID/bearbeiten', recipeController.recipeEdit_put);
+
 module.exports = router;
