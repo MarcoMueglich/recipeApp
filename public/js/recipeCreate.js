@@ -91,18 +91,26 @@ async function postData(url = '', data = {}) {
             'Content-Type': 'application/json',
         },
     });
+
     return response.json();
 }
 
 addIngredientBtn.addEventListener('click', addIngredientInput);
 removeIngredientBtn.addEventListener('click', removeIngredientInput);
 
-// TODO does not forward to /recipes
-
 document.querySelector('#uploadBtn').addEventListener('click', (event) => {
-    postData('/rezepte/erstellen', getInputData()).then((data) => {
-        console.log(data);
-        window.location = '/rezepte';
+    postData('/rezepte/erstellen', getInputData()).then((response) => {
+        if (response == 'Successful') {
+            var modal = new bootstrap.Modal(
+                document.querySelector('#successModal')
+            );
+            modal.show();
+        } else {
+            var modal = new bootstrap.Modal(
+                document.querySelector('#errorModal')
+            );
+            modal.show();
+        }
     });
     event.preventDefault();
 });

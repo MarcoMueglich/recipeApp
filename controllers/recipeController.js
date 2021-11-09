@@ -33,9 +33,10 @@ exports.recipeCreate_get = function (req, res, next) {
     res.render('recipeCreate', { title: 'Rezepte' });
 };
 
+//TODO Add Validation/Sanitization before saving to DB
+
 exports.recipeCreate_post = function (req, res, next) {
     var newRecipe = req.body;
-
     var recipe = new Recipe({
         title: newRecipe.title,
         category: newRecipe.category,
@@ -45,33 +46,30 @@ exports.recipeCreate_post = function (req, res, next) {
         amounts: newRecipe.amounts,
     });
 
-    recipe.save(function (error) {
-        if (error) console.log(error);
-        console.log('erfolgreich gespeichert');
-    });
-};
+    // TODO Rework result JSON as Object
+    if (newRecipe.title && newRecipe.title != '') {
+        recipe.save(function (error) {
+            if (error) console.log(error);
+            console.log(
+                `INFO: ${new Date().toLocaleString(
+                    'en-US'
+                )} : Recipe saved succesfully`
+            );
+            res.writeHead(200, {
+                'Content-Type': 'application/json',
+            });
+            res.end(JSON.stringify('Successful'));
+        });
+    } else {
+        console.log(
+            `WARN: ${new Date().toLocaleString(
+                'en-US'
+            )} : Error on saving Recipe`
+        );
 
-exports.testInsert_get = function (req, res, next) {
-    var exampleRecipe = new Recipe({
-        title: 'Griechischer Bauernsalat',
-        category: 'Vorspeise',
-        imgUrl: 'https://img.chefkoch-cdn.de/rezepte/262751102375096/bilder/967331/crop-600x400/griechischer-bauernsalat.jpg',
-        instructions:
-            'Gurke waschen und ungeschält in dünne Scheiben oder Stücke schneiden. Paprika waschen, entkernen und in dünne Streifen schneiden. Tomaten waschen und achteln. Zwiebeln schälen und in feine Ringe schneiden. Schafskäse würfeln und mit Oregano bestreuen. Oliven abgießen und mit Gurke, Paprika, Tomaten, Zwiebeln und Schafskäse in eine Schüssel geben. Olivenöl, Zitronensaft, Salz und Pfeffer zu einer Sauce verrühren und über den Salat gießen. Umrühren.',
-        ingredients: [
-            'Salatgurke',
-            'Paprikaschote',
-            'Tomate',
-            'Zwiebel',
-            'Schafskäse',
-            'Oliven',
-            'Olivenöl',
-        ],
-        amounts: ['1', '2', '500 g', '2', '200 g', '1 Glas', '125 ml'],
-    });
-
-    exampleRecipe.save(function (error) {
-        if (error) console.log(error);
-        res.send('Erfolgreich erstellt');
-    });
+        res.writeHead(200, {
+            'Content-Type': 'application/json',
+        });
+        res.end(JSON.stringify('Error'));
+    }
 };
