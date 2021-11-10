@@ -41,7 +41,7 @@ exports.recipeCreate_get = function (req, res, next) {
     res.render('recipeCreate', { title: 'Rezepte' });
 };
 
-//TODO Add Validation/Sanitization before saving to DB
+// TODO Add Validation/Sanitization before saving to DB
 
 exports.recipeCreate_post = function (req, res, next) {
     var newRecipe = req.body;
@@ -96,6 +96,8 @@ exports.recipeEdit_get = function (req, res, next) {
         }
     });
 };
+
+// TODO implement recipeEdit_put to edit recipes in DB
 
 exports.recipeEdit_put = function (req, res, next) {
     res.render('recipeCreate', { title: 'Rezepte' });
