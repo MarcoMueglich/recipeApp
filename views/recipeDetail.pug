@@ -12,5 +12,9 @@ block content
             each ingredient, index in recipeData.ingredients
                 li #{recipeData.amounts[index] + " " + ingredient}
         a(href="/rezepte/" + recipeData._id + "/bearbeiten") 
-            button.btn.btn-primary Bearbeiten 
+            button#editBtn.btn.btn-primary.text-light Bearbeiten 
+        button#deleteBtn.btn.btn-danger.ms-2 Löschen
 
+        form
+            input#recipeId.form-control(type='hidden',name='recipeid', required='true', value=recipeData._id )
+    script(src="../js/recipeDetail.js")
