@@ -17,7 +17,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 exports.recipeList_get = function (req, res, next) {
   Recipe.find({})
-    .sort({ category: 'desc' })
+    .sort({ category: 'desc', title: 'asc' })
     .exec(function (err, recipes) {
       if (err) console.log(err);
       res.render('recipeList', { title: 'Rezepte', recipeList: recipes });
