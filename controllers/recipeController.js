@@ -16,10 +16,12 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 exports.recipeList_get = function (req, res, next) {
-  Recipe.find({}, function (err, recipes) {
-    if (err) console.log(err);
-    res.render('recipeList', { title: 'Rezepte', recipeList: recipes });
-  });
+  Recipe.find({})
+    .sort({ category: 'desc' })
+    .exec(function (err, recipes) {
+      if (err) console.log(err);
+      res.render('recipeList', { title: 'Rezepte', recipeList: recipes });
+    });
 };
 
 exports.recipeDetail_get = function (req, res, next) {
