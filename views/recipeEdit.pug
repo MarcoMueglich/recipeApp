@@ -46,17 +46,18 @@ block content
                                 i#addIngredientBtn.ingredientControlBtn.fas.fa-plus-circle.fa-2x
                             .col-1.d-flex.justify-content-center.align-items-center
                                 i#removeIngredientBtn.ingredientControlBtn.fas.fa-minus-circle.fa-2x
-            button#uploadBtn.btn.btn-primary Hochladen
+            input#recipeId.form-control(type='hidden',name='recipeid', required='true', value=recipeData._id )
+            button#changeBtn.btn.btn-primary Hochladen
 
     #successModal.modal.fade(tabindex='-1' aria-hidden='true' data-bs-backdrop="static")
         .modal-dialog
             .modal-content
                 .modal-header
                 .modal-body
-                    p Das Rezept wurde erfolgreich hochgeladen!
+                    p Das Rezept wurde erfolgreich geändert!
                 .modal-footer
-                    a(href="/rezepte") 
-                        button.btn.btn-primary(type='button') Zu den Rezepten
+                    a(href="/rezepte/" + recipeData._id) 
+                        button.btn.btn-primary(type='button') Zum Rezept
 
     #errorModal.modal.fade(tabindex='-1' aria-hidden='true')
         .modal-dialog
@@ -66,4 +67,4 @@ block content
                 .modal-body
                     p Beim Hochladen des Rezeptes gab es ein Problem. Bitte fülle alle Felder aus!
 
-    script(src="../../js/recipeCreate.js")
+    script(src="../../js/recipeForm.js")

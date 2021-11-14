@@ -93,10 +93,23 @@ exports.recipeEdit_get = function (req, res, next) {
   });
 };
 
-// TODO implement recipeEdit_put to edit recipes in DB
-
+// TODO implement proper Validation
 exports.recipeEdit_put = function (req, res, next) {
-  res.render('recipeCreate', { title: 'Rezepte' });
+  var newRecipe = req.body;
+  if (newRecipe.title && newRecipe.title != '') {
+    Recipe.findByIdAndUpdate(req.params.recipeID, req.body, (err) => {
+      if (err) console.log(err);
+      res.writeHead(200, {
+        'Content-Type': 'application/json',
+      });
+      res.end(JSON.stringify('Successful'));
+    });
+  } else {
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+    });
+    res.end(JSON.stringify('Error'));
+  }
 };
 
 exports.recipeDelete = function (req, res, next) {
