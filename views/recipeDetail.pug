@@ -3,17 +3,33 @@ extends layout
 block content
     .container.py-5
         h1.text-center #{recipeData.title}
-        .d-flex.justify-content-center
-            img.rounded.my-3.border.border-dark(src= recipeData.imgUrl, alt="" width="500px")
-        h2 Zubereitung
-        p #{recipeData.instructions}
-        h2 Zutaten
-        ul
-            each ingredient, index in recipeData.ingredients
-                li #{recipeData.amounts[index] + " " + ingredient}
-        a(href="/rezepte/" + recipeData._id + "/bearbeiten") 
-            button#editBtn.btn.btn-primary.text-light Bearbeiten 
-        button#deleteBtn.btn.btn-danger.ms-2 Löschen
+        .py-3
+            .row
+                .col-lg-6.d-flex.justify-content-center
+                    img.img-fluid.rounded.my-3.border.border-4.border-primary(src= recipeData.imgUrl, alt="Bild von " + recipeData.title, width="500px")
+                .col-lg-6
+                    h2.mt-3 Zutaten
+                    .ingredientList.mt-2
+                        each ingredient, index in recipeData.ingredients
+                            if index % 2 == 0
+                                .row.fs-4.bg-primary.text-light.rounded
+                                    .col.text-end
+                                        span #{recipeData.amounts[index]}
+                                    .col.text-start
+                                        span #{ingredient}
+                            else 
+                                .row.fs-4.bg-secondary.text-dark.rounded
+                                    .col.text-end
+                                        span #{recipeData.amounts[index]}
+                                    .col.text-start
+                                        span #{ingredient}
+        .py-3    
+            h2 Zubereitung
+            p(style="white-space: pre-wrap;") #{recipeData.instructions}
+            hr
+            a(href="/rezepte/" + recipeData._id + "/bearbeiten") 
+                button#editBtn.btn.btn-warning.text-light Bearbeiten 
+            button#deleteBtn.btn.btn-danger.ms-2 Löschen
 
         form
             input#recipeId.form-control(type='hidden',name='recipeid', required='true', value=recipeData._id )
