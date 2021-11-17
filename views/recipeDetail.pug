@@ -1,4 +1,4 @@
-extends layout
+extends layoutSidebar
 
 block content
     .container.py-5
@@ -32,5 +32,5 @@ block content
             button#deleteBtn.btn.btn-danger.ms-2 Löschen
 
         form
-            input#recipeId.form-control(type='hidden',name='recipeid', required='true', value=recipeData._id )
+            input#recipeId.form-control(type='hidden' name='recipeid' required='true', value=recipeData._id )
     script(src="../js/recipeDetail.js")
