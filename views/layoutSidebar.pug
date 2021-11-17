@@ -7,19 +7,16 @@ html
         .container-fluid
             .row.flex-nowrap
                 .col-auto.col-md-3.col-xl-2.px-sm-2.px-0.bg-dark
-                    .d-flex.flex-column.align-items-center.align-items-sm-start.px-3.pt-2.text-white.min-vh-100
+                    .d-flex.flex-column.px-4.pt-4.text-white.min-vh-100.sticky-top
                         a.d-flex.align-items-center.pb-3.mb-md-0.me-md-auto.text-white.text-decoration-none(href='/')
-                        span.fs-5.d-none.d-sm-inline Menu
-                        ul#menu.nav.nav-pills.flex-column.mb-sm-auto.mb-0.align-items-center.align-items-sm-start
-                            li.nav-item
-                                a.nav-link.align-middle.px-0(href='/')
-                                    span.ms-1.d-none.d-sm-inline Home
+                            span.fs-2 RecipeApp
+                        ul#menu.nav.flex-column.mb-0.fs-5
                             li
-                                a.nav-link.px-0.align-middle(href='/rezepte')
-                                    span.ms-1.d-none.d-sm-inline Rezepte
+                                a.nav-link.px-0(href='/rezepte')
+                                    span.ms-1 Rezepte
                             li
-                                a.nav-link.px-0.align-middle(href='/rezepte/erstellen')
-                                    span.ms-1.d-none.d-sm-inline Erstellen
+                                a.nav-link.px-0(href='/rezepte/erstellen')
+                                    span.ms-1 Erstellen
                 .col.py-3
                     block content
         script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js' integrity='sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p' crossorigin='anonymous')
