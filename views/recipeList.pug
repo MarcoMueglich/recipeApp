@@ -1,7 +1,7 @@
 extends layoutSidebar
 
 block content
-    .container.py-5.d-flex.justify-content-center.flex-wrap
+    .container-fluid.py-5.d-flex.justify-content-center.flex-wrap
         each recipe in recipeList  
             .card(style='width: 18rem;').m-3
                 img.card-img-top.p-3.rounded(src=recipe.imgUrl alt='Bild von ' + recipe.title)
