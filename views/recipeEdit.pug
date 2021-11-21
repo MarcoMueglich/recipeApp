@@ -2,6 +2,11 @@ extends layoutSidebar
 
 block content
     .container.py-5
+        if error
+            .alert.alert-danger
+                for message in error.messages
+                    p=message
+        #alertBox.alert.alert-danger.d-none
         form(action="/rezepte/erstellen" method="post")
             .mb-3
                 label.form-label(for='inputTitle') Titel
