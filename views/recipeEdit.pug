@@ -30,6 +30,8 @@ block content
             .mb-3
                 label.form-label(for='inputImg') Foto (URL)
                 input#inputImg.form-control(type='url' name="img" value=recipeData.imgUrl)
+            .d-flex.justify-content-center.m-3
+                img#imgPreview.img-fluid.rounded.my-3.border.border-4.border-primary.d-none(src="" alt="")
             .mb-3
                 label.form-label(for='inputInstructions') Zubereitung
                 textarea#inputInstructions.form-control(rows="10" name="instructions") #{recipeData.instructions}

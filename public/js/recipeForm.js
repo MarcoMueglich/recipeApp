@@ -140,7 +140,7 @@ var getInputData = () => {
     };
 };
 
-async function postData(url = '', data = {}) {
+async function fetchPostData(url = '', data = {}) {
     const response = await fetch(url, {
         method: 'POST',
         mode: 'cors',
@@ -153,7 +153,7 @@ async function postData(url = '', data = {}) {
     return response.json();
 }
 
-async function putData(url = '', data = {}) {
+async function fetchPutData(url = '', data = {}) {
     const response = await fetch(url, {
         method: 'PUT',
         mode: 'cors',
@@ -166,10 +166,27 @@ async function putData(url = '', data = {}) {
     return response.json();
 }
 
+function isValidUrl(_string) {
+    const matchPattern =
+        /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
+    return matchPattern.test(_string);
+}
+
 // Event Listeners ----------------------------------------------------
 
 addIngredientBtn.addEventListener('click', addIngredientInput);
 removeIngredientBtn.addEventListener('click', removeIngredientInput);
+
+// TODO rework so only shows image if url is a valid img url
+document.querySelector('#inputImg').addEventListener('input', () => {
+    var url = document.querySelector('#inputImg').value;
+    if (isValidUrl(url)) {
+        document.querySelector('#imgPreview').classList.remove('d-none');
+        document.querySelector('#imgPreview').src = url;
+    } else {
+        document.querySelector('#imgPreview').classList.add('d-none');
+    }
+});
 
 if (uploadBtn != null) {
     uploadBtn.addEventListener('click', (event) => {
@@ -177,19 +194,21 @@ if (uploadBtn != null) {
         validateInputData();
 
         if (alertBox.childElementCount == 0) {
-            postData('/rezepte/erstellen', getInputData()).then((response) => {
-                if (response == 'Successful') {
-                    var modal = new bootstrap.Modal(
-                        document.querySelector('#successModal')
-                    );
-                    modal.show();
-                } else {
-                    var modal = new bootstrap.Modal(
-                        document.querySelector('#errorModal')
-                    );
-                    modal.show();
+            fetchPostData('/rezepte/erstellen', getInputData()).then(
+                (response) => {
+                    if (response == 'Successful') {
+                        var modal = new bootstrap.Modal(
+                            document.querySelector('#successModal')
+                        );
+                        modal.show();
+                    } else {
+                        var modal = new bootstrap.Modal(
+                            document.querySelector('#errorModal')
+                        );
+                        modal.show();
+                    }
                 }
-            });
+            );
         }
     });
 }
@@ -201,19 +220,25 @@ if (changeBtn != null) {
         validateInputData();
 
         if (alertBox.childElementCount == 0) {
-            putData(`/rezepte/${recipeID}`, getInputData()).then((response) => {
-                if (response == 'Successful') {
-                    var modal = new bootstrap.Modal(
-                        document.querySelector('#successModal')
-                    );
-                    modal.show();
-                } else {
-                    var modal = new bootstrap.Modal(
-                        document.querySelector('#errorModal')
-                    );
-                    modal.show();
+            fetchPutData(`/rezepte/${recipeID}`, getInputData()).then(
+                (response) => {
+                    if (response == 'Successful') {
+                        var modal = new bootstrap.Modal(
+                            document.querySelector('#successModal')
+                        );
+                        modal.show();
+                    } else {
+                        var modal = new bootstrap.Modal(
+                            document.querySelector('#errorModal')
+                        );
+                        modal.show();
+                    }
                 }
-            });
+            );
         }
     });
+
+    document.querySelector('#imgPreview').classList.remove('d-none');
+    document.querySelector('#imgPreview').src =
+        document.querySelector('#inputImg').value;
 }
