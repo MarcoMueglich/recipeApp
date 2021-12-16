@@ -12,6 +12,8 @@ router.post('/erstellen', recipeController.recipeCreate_post);
 
 router.get('/:recipeID', recipeController.recipeDetail_get);
 
+router.get('/api/:recipeID', recipeController.recipeDetail_getJSON);
+
 router.get('/:recipeID/bearbeiten', recipeController.recipeEdit_get);
 
 router.put('/:recipeID', recipeController.recipeEdit_put);

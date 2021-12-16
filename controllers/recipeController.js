@@ -39,6 +39,18 @@ exports.recipeDetail_get = function (req, res, next) {
   });
 };
 
+exports.recipeDetail_getJSON = function (req, res, next) {
+    Recipe.findById(req.params.recipeID, function (err, recipe) {
+        if (err) console.log(err);
+
+        if (recipe != null) {
+            res.json(recipe);
+        } else {
+            res.status('404').send('Recipe not found');
+        }
+    });
+};
+
 exports.recipeCreate_get = function (req, res, next) {
   res.render('recipeCreate', { title: 'Rezepte' });
 };
